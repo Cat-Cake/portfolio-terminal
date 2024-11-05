@@ -1,10 +1,20 @@
+// Terminal.js
 import React, { useState } from 'react';
 import '../style/Terminal.scss';
+import SkillsChart from './SkillsChart';
 
 const Terminal = () => {
     const [input, setInput] = useState('');
     const [output, setOutput] = useState([]);
     const [showPrompt, setShowPrompt] = useState(true);
+
+    const skillsData = [
+        { name: 'JavaScript', level: 8 },
+        { name: 'React', level: 7 },
+        { name: 'Node.js', level: 6 },
+        { name: 'D3.js', level: 5 },
+        { name: 'MongoDB', level: 6 },
+    ];
 
     const handleInput = (e) => {
         if (e.key === 'Enter') {
@@ -17,66 +27,59 @@ const Terminal = () => {
 
     const processCommand = (command) => {
         switch (command.toLowerCase()) {
-            case '/help':
+            case '/skills':
                 return (
                     <div className="command-response">
-                        <p>Liste des commandes :</p>
-                        <ul>
-                            <li>- <span className="command">/about</span> : Affiche des informations sur moi.</li>
-                            <li>- <span className="command">/projects</span> : Montre mes projets récents.</li>
-                            <li>- <span className="command">/skills</span> : Détail de mes compétences.</li>
-                            <li>- <span className="command">/contact</span> : Informations de contact.</li>
-                            <li>- <span className="command">/clear</span> : Efface l'écran du terminal.</li>
-                            <li>- <span className="command">/resume</span> : Affiche un résumé du portfolio.</li>
-                        </ul>
+                        <p>Compétences :</p>
+                        <SkillsChart skills={skillsData} />
                     </div>
                 );
             case '/about':
-                return <div className="command-response">Je suis [Ton Nom], un développeur passionné...</div>;
+                return <div className="command-response">Hey je m’appelle Lucas...</div>;
             case '/projects':
-                return <div className="command-response">Mes projets : Portfolio, Application de gestion, ...</div>;
-            case '/skills':
-                return <div className="command-response">Compétences : JavaScript, React, Node.js, etc.</div>;
+                return <div className="command-response">Mes projets : Portfolio...</div>;
             case '/contact':
                 return (
                     <div className="command-response">
-                        <p>Comment me contacter :</p>
                         <ul>
                             <li><a href="https://www.linkedin.com/in/lucas-manot-4a0312225/" target="_blank" rel="noopener noreferrer">- LinkedIn</a></li>
-                            <li><a href="mailto:lucas.manot@gmail.com" target="_blank">- lucas.manot@gmail.com</a></li>
-                            <li><a href="https://github.com/Cat-Cake" target="_blank">- GitHub</a></li>
+                            <li><a href="mailto:lucas.manot@gmail.com">- lucas.manot@gmail.com</a></li>
+                            <li><a href="https://github.com/Cat-Cake">- GitHub</a></li>
                         </ul>
                     </div>
                 );
             case '/clear':
                 return window.location.reload();
             default:
-                return <div className="error-response">Commande non reconnue. Tapez <span className="command">"/help"</span> pour la liste des commandes.</div>;
+                return <div className="error-response">Commande non reconnue. Tapez "/help" pour la liste des commandes.</div>;
         }
     };
 
     return (
-        <div className="terminal">
-            <div className="output">
-                <div className="welcome">
-                    Bienvenue sur mon portfolio. Pour en savoir plus sur les commandes, tapez '/help'. <br/>
-                    Pour voir un résumé faites /resume
-                </div>
-                {output.map((line, index) => (
-                    <div key={index} className="response">
-                        {line}
+        <div className="desktop">
+            <div className="terminal">
+                <div className="terminal-title-bar">Terminal - Portfolio</div>
+                <div className="output">
+                    <div className="welcome">
+                        Bienvenue sur mon portfolio. Tapez '/skills' pour voir mes compétences.
                     </div>
-                ))}
+                    {output.map((line, index) => (
+                        <div key={index} className="response">
+                            {line}
+                        </div>
+                    ))}
+                </div>
+                {showPrompt && (
+                    <input
+                        type="text"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyDown={handleInput}
+                        placeholder="Tapez une commande"
+                    />
+                )}
             </div>
-            {showPrompt && (
-                <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={handleInput}
-                    placeholder="Tapez une commande"
-                />
-            )}
+            <div className="taskbar">© 2024 - Mon Portfolio | Simulateur de bureau</div>
         </div>
     );
 };
