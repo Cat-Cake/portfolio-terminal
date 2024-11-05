@@ -24,9 +24,10 @@ const Terminal = () => {
                         <ul>
                             <li>- <span className="command">/about</span> : Affiche des informations sur moi.</li>
                             <li>- <span className="command">/projects</span> : Montre mes projets récents.</li>
-                            <li>- <span className="command">/skills</span> : Détaille mes compétences.</li>
+                            <li>- <span className="command">/skills</span> : Détail de mes compétences.</li>
                             <li>- <span className="command">/contact</span> : Informations de contact.</li>
                             <li>- <span className="command">/clear</span> : Efface l'écran du terminal.</li>
+                            <li>- <span className="command">/resume</span> : Affiche un résumé du portfolio.</li>
                         </ul>
                     </div>
                 );
@@ -58,11 +59,12 @@ const Terminal = () => {
         <div className="terminal">
             <div className="output">
                 <div className="welcome">
-                    Bienvenue sur mon portfolio. Pour en savoir plus sur les commandes, tapez '/help'.
+                    Bienvenue sur mon portfolio. Pour en savoir plus sur les commandes, tapez '/help'. <br/>
+                    Pour voir un résumé faites /resume
                 </div>
                 {output.map((line, index) => (
                     <div key={index} className="response">
-                        {line} {/* line est un élément React valide */}
+                        {line}
                     </div>
                 ))}
             </div>
